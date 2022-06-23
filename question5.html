@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <title>JSON to Bootstrap Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">    
+  </head>
+  <body>
+    <div class="container-fluid">
+    <h1>Convertir JSON en tableau</h1>    
+    <button onclick="convertJsonToBootstrapTable()">Convert JSON to Bootstrap Table</button>    
+    <br>
+    <br>
+    <!-- table to display the json data -->
+    <table id="display_json_data" class="table table-bordered table-striped"></table>
+    </div>
+    <script>
+     
+    var snefJson = [{"techo": "2G|3G|4G|5G|Wifi|Unknown", "tests": [{"name": "Sms", "iterations": [{"result": "7", "statut": "valid|waiting|progressing|failed"}, {"result": "1", "statut": "valid|waiting|progressing|failed"}]}, {"name": "Appel", "iterations": [{"result": true, "statut": "valid"}]}, {"name": "Streaming", "iterations": [{"result": {"speed": 39.63, "startTime": 1378, "lastBitrate": "hd1440", "cellInfoList": [{"LAC": 2147483647, "MCC": 208, "MNC": 20, "TAC": 31220, "type": "Lte", "LteCQI": 2147483647, "NrRSRP": 2147483647, "NrRSRQ": 2147483647, "NrSINR": 2147483647, "cellId": 130897927, "GsmRSSI": 2147483647, "LteRSRP": -100, "LteRSRQ": -9, "LteRSSNR": 2147483647, "WcdmaRSCP": 2147483647, "channelNumber": 6200, "isFromCallSim": true, "isFromDataSim": true, "networkOperator": "20820", "networkOperatorName": "Bouygtel"}], "rebufferRate": 0}, "statut": "valid|waiting|progressing|failed"}]}, {"name": "Appel d'urgence", "iterations": [{"result": true, "statut": "valid"}]}, {"name": "CSFB", "iterations": [{"result": true, "statut": "valid|waiting|progressing|failed"}]}, {"name": "Débit", "iterations": [{"result": {"system": {"id": "", "band": "", "label": "", "techno": "2G|3G|4G|5G"}, "pingStats": {"max": "5.0", "min": "2.0", "mdev": "5.0", "address": "", "average": "3"}, "uploadTransferRateBit": "1.8", "downloadTransferRateBit": "1.8"}, "statut": "valid|waiting|progressing|failed"}]}, {"name": "Volte", "iterations": [{"result": true, "statut": "valid|waiting|progressing|failed"}]}]}];
+     
+    function convertJsonToBootstrapTable(){
+        var headers = Object.keys(snefJson[0]);
+         
+
+        var headerRowHTML='<tr>';
+        for(var i=0;i<headers.length;i++){
+            headerRowHTML+='<th>'+headers[i]+'</th>';
+        }
+        headerRowHTML+='</tr>';       
+         
+
+        var allRecordsHTML='';
+        for(var i=0;i<snefJson.length;i++){
+         
+            allRecordsHTML+='<tr>';
+            for(var j=0;j<headers.length;j++){
+                var header=headers[j];
+                allRecordsHTML+='<td>'+snefJson[i][header]+'</td>';
+            }
+            allRecordsHTML+='</tr>';
+             
+        }
+         
+        var table=document.getElementById("display_json_data");
+        table.innerHTML=headerRowHTML + allRecordsHTML;
+    }
+       
+    </script>
+  </body>
+</html>
